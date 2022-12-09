@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <div class="card bg-warning">
+                <div class="card-header">
+                    <span>Жанры фильмов</span>
+                </div>
+                <div class="list-group-flush">
+                    <a href="/" role="button" class="bg-dark list-group-item btn-warning text-light">Все фильмы</a>
+                    {% if categories %}
+                        {% for cat in categories %}
+                            <a href="/?category={{ cat.id }}" role="button"
+                               class="bg-dark list-group-item btn-warning text-light">{{ cat.name }}</a>
+
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col grid">
+
+            {% if items %}
+                <div class="row row-col-auto">
+                    {% for i in items %}
+                        <div class="col-auto">
+                            <div class="card grid-item m-2" style="max-width: 20rem">
+                                <img class="card-img-top" src="{{ i.img.url }}">
+                                <div class="card-body">
+                                    <h1 class="fs-5">{{ i.name }}</h1>
+                                    <span class="fs-6">{{ i.description }}</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="fs-6">Длительность: {{ i.price }} минут</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-warning border-dark">
+                    В результатах поиска нет информации по запросу
+
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
